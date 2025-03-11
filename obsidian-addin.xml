@@ -8,7 +8,7 @@
     <ProviderName>Your Name</ProviderName>
     <DisplayName>Send to Obsidian</DisplayName>
     <Description>Creates a note in Obsidian for this calendar event.</Description>
-    <IconUrl>https://yourhost.com/icon.png</IconUrl>
+    <IconUrl>https://donjjones.github.io/obsidian-calendar/icon.png</IconUrl>
     <Hosts>
         <Host Name="Outlook"/>
     </Hosts>
@@ -20,7 +20,7 @@
     <FormSettings>
         <Form xsi:type="ItemRead">
             <DesktopSettings>
-                <SourceLocation DefaultValue="https://yourhost.com/obsidian-addin.html"/>
+                <SourceLocation DefaultValue="https://donjjones.github.io/obsidian-calendar/obsidian-addin.html"/>
                 <RequestedHeight>300</RequestedHeight>
             </DesktopSettings>
         </Form>
