@@ -1,32 +1,103 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1" 
-           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-           xsi:type="MessageRead"
-           xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0">
-    <Id>com.donjjones.sendtoobsidian</Id>
-    <Version>1.0</Version>
-    <ProviderName>Your Name</ProviderName>
-    <DisplayName>Send to Obsidian</DisplayName>
-    <Description>Creates a note in Obsidian for this calendar event.</Description>
-    <IconUrl>https://donjjones.github.io/obsidian-calendar/icon.png</IconUrl>
+<OfficeApp xmlns="http://schemas.microsoft.com/office/appforoffice/1.1"
+           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+           xsi:type="MailApp">
+    <!-- Unique identifier for the add-in -->
+    <Id>123e4567-e89b-12d3-a456-426614174000</Id>
+    <!-- Version number of the add-in -->
+    <Version>1.0.0.0</Version>
+    <!-- Provider's name -->
+    <ProviderName>Don Jones</ProviderName>
+    <!-- Default locale for the add-in -->
+    <DefaultLocale>en-US</DefaultLocale>
+    <!-- Display name with DefaultValue attribute -->
+    <DisplayName DefaultValue="Send to Obsidian"/>
+    <!-- Description with DefaultValue attribute -->
+    <Description DefaultValue="Creates a note in Obsidian for this calendar event."/>
+    <!-- Icon URL with DefaultValue attribute -->
+    <IconUrl DefaultValue="https://donjjones.github.io/obsidian-calendar/icon.png"/>
+    <!-- Support URL with DefaultValue attribute -->
+    <SupportUrl DefaultValue="https://donjjones.github.io/obsidian-calendar"/>
+    <!-- Hosts where the add-in will be available -->
     <Hosts>
-        <Host Name="Outlook"/>
+        <Host Name="Mailbox"/>
     </Hosts>
+    <!-- Requirements for the add-in -->
     <Requirements>
         <Sets>
             <Set Name="Mailbox" MinVersion="1.1"/>
         </Sets>
     </Requirements>
+    <!-- Form settings for the add-in -->
     <FormSettings>
         <Form xsi:type="ItemRead">
             <DesktopSettings>
+                <!-- Source location with DefaultValue attribute -->
+                <SourceLocation DefaultValue="https://donjjones.github.io/obsidian-calendar/obsidian-addin.html"/>
+                <RequestedHeight>300</RequestedHeight>
+            </DesktopSettings>
+        </Form>
+        <Form xsi:type="ItemEdit">
+            <DesktopSettings>
+                <!-- Source location with DefaultValue attribute -->
                 <SourceLocation DefaultValue="https://donjjones.github.io/obsidian-calendar/obsidian-addin.html"/>
                 <RequestedHeight>300</RequestedHeight>
             </DesktopSettings>
         </Form>
     </FormSettings>
+    <!-- Permissions required by the add-in -->
     <Permissions>ReadWriteItem</Permissions>
+    <!-- Function file containing event handlers -->
+    <FunctionFile resid="functionFile"/>
+    <!-- Extension points for the add-in -->
+    <ExtensionPoints>
+        <MessageReadCommandSurface>
+            <OfficeTab id="TabDefault">
+                <Group id="msgReadGroup">
+                    <Label resid="groupLabel"/>
+                    <Control xsi:type="Button" id="msgReadButton">
+                        <Label resid="buttonLabel"/>
+                        <Supertip>
+                            <Title resid="buttonLabel"/>
+                            <Description resid="buttonDescription"/>
+                        </Supertip>
+                        <Icon>
+                            <bt:Image size="16" resid="icon16"/>
+                            <bt:Image size="32" resid="icon32"/>
+                            <bt:Image size="80" resid="icon80"/>
+                        </Icon>
+                        <Action xsi:type="ShowTaskpane">
+                            <SourceLocation resid="taskpaneUrl"/>
+                            <Title resid="taskpaneTitle"/>
+                        </Action>
+                    </Control>
+                </Group>
+            </OfficeTab>
+        </MessageReadCommandSurface>
+    </ExtensionPoints>
+    <!-- Resources for the add-in -->
+    <Resources>
+        <Images>
+            <Image id="icon16" resid="https://donjjones.github.io/obsidian-calendar/icon16.png"/>
+            <Image id="icon32" resid="https://donjjones.github.io/obsidian-calendar/icon32.png"/>
+            <Image id="icon80" resid="https://donjjones.github.io/obsidian-calendar/icon80.png"/>
+        </Images>
+        <Urls>
+            <Url id="functionFile" resid="https://donjjones.github.io/obsidian-calendar/functions.js"/>
+            <Url id="taskpaneUrl" resid="https://donjjones.github.io/obsidian-calendar/taskpane.html"/>
+        </Urls>
+        <ShortStrings>
+            <String id="groupLabel" resid="Send to Obsidian"/>
+            <String id="buttonLabel" resid="Create Obsidian Note"/>
+            <String id="taskpaneTitle" resid="Obsidian Note"/>
+        </ShortStrings>
+        <LongStrings>
+            <String id="buttonDescription" resid="Creates a note in Obsidian for this calendar event."/>
+        </LongStrings>
+    </Resources>
+    <!-- Activation rules for the add-in -->
     <Rule xsi:type="RuleCollection" Mode="Or">
-        <Rule xsi:type="ItemIs" ItemType="Message" FormType="Read"/>
+        <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Read"/>
+        <Rule xsi:type="ItemIs" ItemType="Appointment" FormType="Edit"/>
     </Rule>
 </OfficeApp>
